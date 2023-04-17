@@ -1,8 +1,9 @@
 import React from "react";
-import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
 import { useSelector } from "react-redux";
 import { selectArticles } from "../../redux/newsSlice";
+import Carousel from "react-bootstrap/Carousel";
+import "bootstrap/dist/css/bootstrap.min.css";
+import newsBg from "../../assets/news.jpeg";
 
 const NewsCarousel = () => {
   const articles = useSelector(selectArticles);
@@ -11,36 +12,24 @@ const NewsCarousel = () => {
     return null; // or some other placeholder component
   }
 
-  const responsive = {
-    desktop: {
-      breakpoint: { max: 3000, min: 1024 },
-      items: 3,
-      slidesToSlide: 3, // optional, default to 1.
-    },
-    tablet: {
-      breakpoint: { max: 1024, min: 464 },
-      items: 2,
-      slidesToSlide: 2, // optional, default to 1.
-    },
-    mobile: {
-      breakpoint: { max: 464, min: 0 },
-      items: 1,
-      slidesToSlide: 1, // optional, default to 1.
-    },
-  };
-
   return (
-    <Carousel
-      swipeable={true}
-      draggable={true}
-      showDots={true}
-      responsive={responsive}
-    >
-      {articles.map((article) => (
-        <div key={article.title}>
+    <Carousel>
+      {articles.slice(0, 3).map((article) => (
+        <Carousel.Item
+          key={article.title}
+          style={{
+            background: `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(${
+              article.urlToImage ? article.urlToImage : newsBg
+            }) no-repeat center center`,
+            backgroundSize: "cover",
+            color: "#fff",
+            height: "300px",
+            padding: "50px",
+          }}
+        >
           <h2>{article.title}</h2>
           <p>{article.description}</p>
-        </div>
+        </Carousel.Item>
       ))}
     </Carousel>
   );
