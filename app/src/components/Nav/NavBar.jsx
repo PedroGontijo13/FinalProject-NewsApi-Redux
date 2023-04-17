@@ -3,12 +3,14 @@ import styled from "styled-components";
 
 const NavContainer = styled.div`
   ul {
+    align-items: center;
     display: flex;
     list-style-type: none;
     margin: 0;
     padding: 0;
     overflow: hidden;
     background-color: #333;
+    justify-content: center; /* Add this line */
   }
 
   nav {

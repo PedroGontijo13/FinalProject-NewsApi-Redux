@@ -23,7 +23,7 @@ const NewsCarousel = () => {
             }) no-repeat center center`,
             backgroundSize: "cover",
             color: "#fff",
-            height: "300px",
+            height: "500px",
             padding: "50px",
           }}
         >

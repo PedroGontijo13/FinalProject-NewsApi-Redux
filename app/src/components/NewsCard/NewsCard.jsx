@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import newsImg from "../../assets/news.jpeg";
+import { Link } from "react-router-dom";
 
 const CardArea = styled.div`
   flex-grow: 1;
@@ -66,7 +67,7 @@ const CardRow = styled.div`
   }
 `;
 
-const NewsCard = ({ title, content, urlToImage }) => {
+const NewsCard = ({ title, content, urlToImage, id }) => {
   return (
     <CardRow>
       <CardArea>
@@ -76,10 +77,10 @@ const NewsCard = ({ title, content, urlToImage }) => {
           <p className="desc">{content.slice(0, 120)}</p>
         </div>
         <div className="actions">
-          <a href="#" className="link">
+          <Link to={`/articles/${id}`} className="link">
             Find out more
             <span aria-hidden="true">➛</span>
-          </a>
+          </Link>
         </div>
       </CardArea>
     </CardRow>

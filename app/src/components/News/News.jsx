@@ -6,6 +6,7 @@ import NewsCard from "../NewsCard/NewsCard";
 import { setArticles } from "../../redux/newsSlice";
 
 const NewsContainer = styled.div`
+  margin-top: 20px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 2fr));
   gap: 1rem;
@@ -33,7 +34,7 @@ export default function News() {
       {articles &&
         articles
           .slice(0, 6)
-          .map((article, index) => <NewsCard key={index} {...article} />)}
+          .map((article, index) => <NewsCard key={index} id={index} {...article} />)}
     </NewsContainer>
   );
 }

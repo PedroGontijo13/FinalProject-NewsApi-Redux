@@ -1,15 +1,26 @@
 import { Provider } from "react-redux";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import NavBar from "./components/Nav/NavBar";
 import store from "./store/store";
-import News from "./components/News/News";
-import NewsCarousel from "./components/NewsCarousel/NewsCarousel";
+import Footer from "./components/Footer/Footer";
+import NewsArticle from "./components/NewsArticle/NewsArticle";
+import Home from "./pages/Home";
 
 function Root() {
   return (
     <Provider store={store}>
-      <NavBar />
-      <NewsCarousel />
-      <News />
+      <Router>
+        <NavBar />
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route path="/article/:id">
+            <NewsArticle />
+          </Route>
+        </Switch>
+        <Footer />
+      </Router>
     </Provider>
   );
 }
