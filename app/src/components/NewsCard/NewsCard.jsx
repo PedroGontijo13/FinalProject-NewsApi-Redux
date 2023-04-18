@@ -56,7 +56,6 @@ const CardArea = styled.div`
     transform: translateX(4px);
   }
 `;
-
 const CardRow = styled.div`
   display: flex;
   justify-content: space-between;
@@ -64,20 +63,27 @@ const CardRow = styled.div`
   width: 100%;
   img {
     width: 100%;
+    height: 250px; // set a fixed height for the image
   }
 `;
 
-const NewsCard = ({ title, content, urlToImage, id }) => {
+const NewsCard = ({ title, urlToImage, content, id }) => {
   return (
     <CardRow>
       <CardArea>
         <img src={urlToImage ? urlToImage : newsImg} alt="img-news" />
         <div className="content">
           <span className="title">{title}</span>
-          <p className="desc">{content.slice(0, 120)}</p>
+          {content && <p className="desc">{content.slice(0, 120)}</p>}
         </div>
         <div className="actions">
-          <Link to={`/articles/${id}`} className="link">
+          <Link
+            to={{
+              pathname: `/articles/${id}`,
+              state: { article: { title, content, urlToImage } },
+            }}
+            className="link"
+          >
             Find out more
             <span aria-hidden="true">➛</span>
           </Link>

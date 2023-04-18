@@ -4,6 +4,22 @@ import { selectArticles } from "../../redux/newsSlice";
 import Carousel from "react-bootstrap/Carousel";
 import "bootstrap/dist/css/bootstrap.min.css";
 import newsBg from "../../assets/news.jpeg";
+import styled from "styled-components";
+
+const CarouselText = styled.div`
+  text-align: center;
+  margin: auto;
+  background: linear-gradient(
+    90deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(105, 105, 209, 1) 32%,
+    rgba(0, 212, 255, 1) 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-fill-color: transparent;
+`;
 
 const NewsCarousel = () => {
   const articles = useSelector(selectArticles);
@@ -27,8 +43,10 @@ const NewsCarousel = () => {
             padding: "50px",
           }}
         >
-          <h2>{article.title}</h2>
-          <p>{article.description}</p>
+          <CarouselText>
+            <h2>{article.title}</h2>
+            <p>{article.description}</p>
+          </CarouselText>
         </Carousel.Item>
       ))}
     </Carousel>

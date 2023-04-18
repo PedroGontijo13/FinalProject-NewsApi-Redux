@@ -1,15 +1,21 @@
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import NewsArticle from "./components/NewsArticle/NewsArticle";
+import { useSelector } from "react-redux";
 
 function App() {
+  const articles = useSelector((state) => state.news.articles);
+
   return (
-    <Router>
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route path="/articles/:id" component={NewsArticle} />
-      </Switch>
-    </Router>
+    <BrowserRouter>
+      <Routes>
+        <Route index element={<Home />} />
+        <Route
+          path="/articles/:id"
+          element={<NewsArticle articles={articles} />}
+        />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

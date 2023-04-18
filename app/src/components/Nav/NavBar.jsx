@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Modal from "react-bootstrap/Modal";
 import { Button } from "react-bootstrap";
 import axios from "axios";
+import Card from "../Card/Card";
 
 const NavContainer = styled.div`
   ul {
@@ -12,7 +13,7 @@ const NavContainer = styled.div`
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #333;
+    background-color: #1f6dca;
     justify-content: center; /* Add this line */
   }
 
@@ -33,7 +34,7 @@ const NavContainer = styled.div`
   }
 
   li a:hover {
-    background-color: #111;
+    background-color: #1f6fff;
   }
 
   li:last-child {
@@ -87,7 +88,15 @@ const MenuButton = styled.button`
 `;
 
 const SearchButton = styled.button`
-  background-color: #333;
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    90deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(105, 105, 209, 1) 0%,
+    rgba(0, 212, 255, 1) 100%
+  );
+  border-radius: 20px;
+  margin: 5px 10px;
   color: white;
   border: none;
   cursor: pointer;
@@ -164,19 +173,22 @@ export default function NavBar() {
           <Modal.Title>Search Results</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {searchResults.length > 0 ? (
-            <ul>
-              {searchResults.map((result) => (
-                <li key={result.title}>
-                  <h5>{result.title}</h5>
-                  <p>{result.description}</p>
-                  <a href={result.url}>Read more</a>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p>No results found.</p>
-          )}
+          <Modal.Body>
+            {searchResults.length > 0 ? (
+              <div>
+                {searchResults.map((result) => (
+                  <Card
+                    key={result.title}
+                    title={result.title}
+                    description={result.description}
+                    url={result.url}
+                  />
+                ))}
+              </div>
+            ) : (
+              <p>No results found.</p>
+            )}
+          </Modal.Body>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCloseSearchResults}>
