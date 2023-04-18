@@ -1,5 +1,8 @@
 import { useState } from "react";
 import styled from "styled-components";
+import Modal from "react-bootstrap/Modal";
+import { Button } from "react-bootstrap";
+import axios from "axios";
 
 const NavContainer = styled.div`
   ul {
@@ -83,11 +86,44 @@ const MenuButton = styled.button`
   }
 `;
 
+const SearchButton = styled.button`
+  background-color: #333;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 14px 16px;
+`;
+
+const SearchContainer = styled.li`
+  display: flex;
+  align-items: center;
+`;
+
 export default function NavBar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const [showSearchResults, setShowSearchResults] = useState(false);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen((prevIsMobileMenuOpen) => !prevIsMobileMenuOpen);
+  };
+
+  const handleSearchInputChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const handleSearchSubmit = async () => {
+    const response = await axios.get(
+      `https://newsapi.org/v2/everything?q=${searchTerm}&apiKey=4f149de8d35945bb91dddfd36d5f6002`
+    );
+    setSearchResults(response.data.articles);
+    setShowSearchResults(true);
+  };
+
+  const handleCloseSearchResults = () => {
+    setShowSearchResults(false);
   };
 
   return (
@@ -111,11 +147,43 @@ export default function NavBar() {
           <li>
             <a href="#about">About</a>
           </li>
-          <li>
-            <SearchBar type="text" placeholder="Search news" />
-          </li>
+
+          <SearchContainer>
+            <SearchBar
+              type="text"
+              placeholder="Search news"
+              value={searchTerm}
+              onChange={handleSearchInputChange}
+            />
+            <SearchButton onClick={handleSearchSubmit}>Search</SearchButton>
+          </SearchContainer>
         </ul>
       </nav>
+      <Modal show={showSearchResults} onHide={handleCloseSearchResults}>
+        <Modal.Header closeButton>
+          <Modal.Title>Search Results</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {searchResults.length > 0 ? (
+            <ul>
+              {searchResults.map((result) => (
+                <li key={result.title}>
+                  <h5>{result.title}</h5>
+                  <p>{result.description}</p>
+                  <a href={result.url}>Read more</a>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>No results found.</p>
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseSearchResults}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </NavContainer>
   );
 }
