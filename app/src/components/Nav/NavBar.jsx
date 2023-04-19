@@ -18,7 +18,7 @@ const NavContainer = styled.div`
   }
 
   nav {
-    background-color: #333;
+    background-color: #1f6dca;
   }
 
   li {
@@ -74,7 +74,7 @@ const SearchBar = styled.input`
 
 const MenuButton = styled.button`
   display: none;
-  background-color: #333;
+  background-color: #1f6dca;
   color: white;
   border: none;
   cursor: pointer;
@@ -143,18 +143,18 @@ export default function NavBar() {
         </MenuButton>
         <ul>
           <li>
-            <a className="active" href="#home">
+            <a className="active" href="/">
               Home
             </a>
           </li>
           <li>
-            <a href="#news">News</a>
+            <a href="news">News</a>
           </li>
           <li>
-            <a href="#contact">Contact</a>
+            <a href="contact">Contact</a>
           </li>
           <li>
-            <a href="#about">About</a>
+            <a href="about">About</a>
           </li>
 
           <SearchContainer>

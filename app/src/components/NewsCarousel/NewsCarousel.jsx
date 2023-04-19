@@ -5,8 +5,11 @@ import Carousel from "react-bootstrap/Carousel";
 import "bootstrap/dist/css/bootstrap.min.css";
 import newsBg from "../../assets/news.jpeg";
 import styled from "styled-components";
-
 const CarouselText = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   text-align: center;
   margin: auto;
   background: linear-gradient(

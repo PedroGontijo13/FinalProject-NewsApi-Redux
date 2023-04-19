@@ -12,6 +12,9 @@ const CardArea = styled.div`
   border: 1px solid transparent;
   .content {
     padding: 1.1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 
   .title {
@@ -27,10 +30,10 @@ const CardArea = styled.div`
     font-size: 0.875rem;
     line-height: 1.25rem;
   }
-
+  
   .actions {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between; /* or space-around */
     margin-top: 1rem;
     gap: 0.5rem;
   }
@@ -46,7 +49,6 @@ const CardArea = styled.div`
     padding: 4px 8px;
     border-radius: 4px;
     text-decoration: none;
-    margin: 10px;
   }
 
   .link span {
@@ -75,18 +77,18 @@ const NewsCard = ({ title, urlToImage, content, id }) => {
         <div className="content">
           <span className="title">{title}</span>
           {content && <p className="desc">{content.slice(0, 120)}</p>}
-        </div>
-        <div className="actions">
-          <Link
-            to={{
-              pathname: `/articles/${id}`,
-              state: { article: { title, content, urlToImage } },
-            }}
-            className="link"
-          >
-            Find out more
-            <span aria-hidden="true">➛</span>
-          </Link>
+          <div className="actions">
+            <Link
+              to={{
+                pathname: `/articles/${id}`,
+                state: { article: { title, content, urlToImage } },
+              }}
+              className="link"
+            >
+              Find out more
+              <span aria-hidden="true">➛</span>
+            </Link>
+          </div>
         </div>
       </CardArea>
     </CardRow>
